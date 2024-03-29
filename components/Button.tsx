@@ -1,35 +1,64 @@
-import React from "react"
-import { ButtonProps as TButtonProps, styled, Button as TButton } from "tamagui"
 import { t } from "i18n/i18n"
 import { Scope } from "i18n-js"
+import { TouchableOpacity } from "react-native"
+import { forwardRef } from "react"
+import { colors, ColorsType } from "theme/color"
+import { Text } from "./Text"
+import { useTheme } from "context/themeContext"
+import { Stack } from "tamagui"
 
-export type ButtonProps = TButtonProps & {
+export type ButtonProps = {
   text?: string
   tx?: Scope
+  variant?: "plain" | "outline"
+  onPress?: () => void
+  color?: ColorsType
+  leftIcon?: JSX.Element
+  rightIcon?: JSX.Element
+  fontFamily?: string
+  circular?: boolean
 }
-export function Button({ tx, text, children, ...rest }: ButtonProps) {
-  const content = tx ? t(tx) : text
 
-  return <StyledButton {...rest}>{children !== undefined ? children : content}</StyledButton>
-}
+export const Button = forwardRef(
+  (
+    {
+      tx,
+      text = "",
+      color,
+      variant = "plain",
+      leftIcon,
+      rightIcon,
+      fontFamily = "Jost_500Medium",
+      onPress,
+    }: ButtonProps,
+    ref
+  ) => {
+    const { mainColor } = useTheme()
+    const finalColor = color ? colors[color] : mainColor
+    const colorType = color ? color : "main"
+    const content = tx ? t(tx) : text
+    const isPlain = variant === "plain"
+    const style = {
+      backgroundColor: isPlain ? finalColor : "white",
+      borderColor: finalColor,
+      borderWidth: isPlain ? 0 : 1,
+      paddingVertical: 10,
+      paddingHorizontal: 15,
+      fontFamily,
+    }
 
-const StyledButton = styled(TButton, {
-  color: "$green10",
-  backgroundColor: "$gray3",
-  borderRadius: 8,
-  padding: 10,
-  paddingHorizontal: 20,
-  margin: 4,
-  fontSize: 16,
-  fontWeight: "bold",
-  textAlign: "center",
-  variants: {
-    outlined: {
-      true: {
-        backgroundColor: "transparent",
-        borderWidth: 1,
-        borderColor: "$green10",
-      },
-    },
-  },
-})
+    return (
+      <TouchableOpacity onPress={onPress} style={style}>
+        <Stack ai="center" jc="center">
+          <Text
+            leftElement={leftIcon}
+            rightElement={rightIcon}
+            color={isPlain ? "white" : colorType}
+          >
+            {content}
+          </Text>
+        </Stack>
+      </TouchableOpacity>
+    )
+  }
+)

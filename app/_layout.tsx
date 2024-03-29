@@ -4,8 +4,7 @@ import { useFonts } from "expo-font"
 import { useEffect } from "react"
 import { SessionProvider } from "../context/authContext"
 import { ThemeProvider } from "context/themeContext"
-
-import "../tamagui-web.css"
+import { ClickOutsideProvider } from "react-native-click-outside"
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -14,33 +13,35 @@ export {
 
 const queryCLient = new QueryClient()
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
 
 export default function RootLayout() {
-  const [interLoaded, interError] = useFonts({
-    Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
-    InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
+  const [loaded] = useFonts({
+    Inter: require("assets/fonts/Inter-Medium.otf"),
+    InterBold: require("assets/fonts/Inter-Bold.otf"),
+    Jost_400Regular: require("assets/fonts/Jost/Jost-Regular.ttf"),
+    Jost_500Medium: require("assets/fonts/Jost/Jost-Medium.ttf"),
+    Jost_700Bold: require("assets/fonts/Jost/Jost-Bold.ttf"),
+    Jost_900Black: require("assets/fonts/Jost/Jost-Black.ttf"),
   })
 
   useEffect(() => {
-    if (interLoaded || interError) {
-      // Hide the splash screen after the fonts have loaded (or an error was returned) and the UI is ready.
+    if (loaded) {
       SplashScreen.hideAsync()
     }
-  }, [interLoaded, interError])
+  }, [loaded])
 
-  if (!interLoaded && !interError) {
-    return null
-  }
+  if (!loaded) return null
 
   return (
-    <ThemeProvider>
-      <QueryClientProvider client={queryCLient}>
-        <SessionProvider>
-          <Slot initialRouteName="login" />
-        </SessionProvider>
-      </QueryClientProvider>
-    </ThemeProvider>
+    <ClickOutsideProvider>
+      <ThemeProvider>
+        <QueryClientProvider client={queryCLient}>
+          <SessionProvider>
+            <Slot />
+          </SessionProvider>
+        </QueryClientProvider>
+      </ThemeProvider>
+    </ClickOutsideProvider>
   )
 }

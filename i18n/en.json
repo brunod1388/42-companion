@@ -1,5 +1,77 @@
 {
   "login": {
-    "signIn": "Sign In"
+    "signIn": "Sign In",
+    "signOut": "Sign Out"
+  },
+  "home": {
+    "wallet": "Wallet",
+    "evalPoints": "Evaluation Points",
+    "cursus": "Cursus",
+    "grade": "Grade",
+    "level": "Level",
+    "agenda": "Agenda"
+  },
+  "settings": {
+    "settings": "Settings",
+    "language": "Language",
+    "darkMode": "Dark Mode",
+    "logout": "Logout"
+  },
+  "language": {
+    "language": "Language",
+    "english": "English",
+    "french": "French"
+  },
+  "events": {
+    "agenda": "Agenda",
+    "events": "Events",
+    "noEvents": "No events",
+    "about": "about",
+    "hours": "hours",
+    "subscribe": "Subscribe",
+    "duration": {
+      "zero": "less than an hour",
+      "one": "about an hour",
+      "other": "about %{count} hours"
+    }
+  },
+  "eval": {
+    "evals": "Evaluations",
+    "evalShort": "Eval",
+    "noEvals": "No evaluations",
+    "youWillBeEval": "You will be evaluated on %{name}"
+  },
+  "projects": {
+    "projects": "Projects",
+    "noProjects": "No projects"
+  },
+  "users": {
+    "users": "Users",
+    "noUsers": "No users",
+    "noUsersFound": "No users found",
+    "search": "Search users"
+  },
+  "duration": {
+    "zero": "less than an hour",
+    "one": "about an hour",
+    "other": "about %{hours} hours"
+  },
+  "general": {
+    "yes": "Yes",
+    "no": "No",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "close": "Close",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "loading": "Chargementloading",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Info",
+    "confirmDelete": "Are you sure you want to delete ?",
+    "confirmLogout": "Are you sure you want to logout ?"
   }
 }

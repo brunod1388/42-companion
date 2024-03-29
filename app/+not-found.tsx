@@ -5,6 +5,7 @@ import { Stack as TStack, View, Text, Button } from "tamagui"
 
 export default function NotFoundScreen() {
   const path = usePathname()
+  console.log("error: ", path)
   return (
     <>
       <Stack.Screen options={{ title: "Oops!" }} />

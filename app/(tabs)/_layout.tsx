@@ -1,8 +1,11 @@
-import { Home, User } from "@tamagui/lucide-icons"
-import { useSession } from "context/authContext"
+import { Home, Settings, User } from "@tamagui/lucide-icons"
+import { useAuth } from "context/authContext"
 import { Redirect, Tabs, useRouter } from "expo-router"
-import { Button, Text, View } from "tamagui"
+import { Text, View, YStack } from "tamagui"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
+import { useTheme } from "context/themeContext"
+import { colors } from "theme/color"
+import { StyleSheet, TouchableOpacity } from "react-native"
 
 const routes = [
   {
@@ -11,44 +14,49 @@ const routes = [
     component: Home,
   },
   {
-    path: "/account",
-    name: "account",
+    path: "/users",
+    name: "users",
     component: User,
+  },
+  {
+    path: "/settings",
+    name: "settings",
+    component: Settings,
   },
 ]
 
 export default function TabsLayout() {
-  const { session, isLoading } = useSession()
+  const { session, isLoading } = useAuth()
   const { top } = useSafeAreaInsets()
+  const { mode } = useTheme()
   const router = useRouter()
-
+  const { mainColor } = useTheme()
   if (!session) {
     return <Redirect href="/login" />
   }
 
   if (isLoading) {
-    return <Text>(app) Loading...</Text>
+    return (
+      <YStack ai="center" jc="center">
+        <Text>(app) Loading...</Text>
+      </YStack>
+    )
   }
 
   return (
-    <View style={{ paddingTop: top, height: "100%" }}>
+    <View flex={1} pt={top} bg={mode === "dark" ? colors.black : colors.white}>
       <Tabs
         initialRouteName="home"
         screenOptions={{
           headerShown: false,
           tabBarStyle: {
             alignItems: "center",
-            backgroundColor: "transparent",
-            borderTopColor: "transparent",
             display: "flex",
-            justifyContent: "center",
             paddingBottom: 0,
             paddingVertical: 10,
           },
           tabBarItemStyle: {
             flex: 1,
-            justifyContent: "center",
-            backgroundColor: "red",
           },
           tabBarShowLabel: false,
         }}
@@ -59,11 +67,9 @@ export default function TabsLayout() {
             name={route.name}
             options={{
               tabBarButton: () => (
-                <Button
-                  circular
-                  icon={route.component}
-                  onPress={() => router.navigate(route.path)}
-                />
+                <TouchableOpacity onPress={() => router.navigate(route.path)} style={styles.button}>
+                  <route.component color={mainColor} />
+                </TouchableOpacity>
               ),
             }}
           />
@@ -72,3 +78,11 @@ export default function TabsLayout() {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  button: {
+    flex: 1,
+    alignItems: "center",
+    marginTop: 10,
+  },
+})

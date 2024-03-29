@@ -1,10 +1,11 @@
-import { createContext, useContext } from "react"
+import { createContext, useContext, useEffect } from "react"
 import { useStorageState } from "../hooks/useStorageState"
 import { makeRedirectUri, ResponseType, useAuthRequest } from "expo-auth-session"
 import * as WebBrowser from "expo-web-browser"
 import * as SecureStore from "expo-secure-store"
-import { getToken } from "utils/api"
+import { getMe, getToken } from "utils/api"
 import { useRouter } from "expo-router"
+import { useQuery } from "@tanstack/react-query"
 
 WebBrowser.maybeCompleteAuthSession()
 
@@ -17,16 +18,17 @@ export type AuhContextType = {
   signOut: () => void
   session?: string | null
   isLoading: boolean
+  me: any
 }
 
 const AuthContext = createContext<AuhContextType>({} as AuhContextType)
 
-// This hook can be used to access the user info.
-export function useSession() {
+export function useAuth() {
   const value = useContext(AuthContext)
+  //TODO: correct this
   if (process.env.NODE_ENV !== "production") {
     if (!value) {
-      throw new Error("useSession must be wrapped in a <SessionProvider />")
+      throw new Error("useAuth must be wrapped in a <SessionProvider />")
     }
   }
 
@@ -35,10 +37,8 @@ export function useSession() {
 
 export function SessionProvider(props: React.PropsWithChildren) {
   const API_UID = process.env.EXPO_PUBLIC_API_UID
-  const SECRET = process.env.EXPO_PUBLIC_SECRET
   const router = useRouter()
-
-  const [[isLoading, session], setSession] = useStorageState("session")
+  const [[isSessionLoading, session], setSession] = useStorageState("session")
   const [[isCodeLoading, code], setCode] = useStorageState("code")
   const [request, response, promptAsync] = useAuthRequest(
     {
@@ -52,12 +52,24 @@ export function SessionProvider(props: React.PropsWithChildren) {
     discovery
   )
 
+  const {
+    isPending,
+    isLoading: isUserLoading,
+    isError,
+    data: me,
+    error,
+    refetch: userRefetch,
+  } = useQuery({
+    queryKey: ["me"],
+    queryFn: getMe,
+  })
+
   const signIn = async () => {
-    console.log("sessionState", session)
-    console.log("sessionState.code", code)
-    console.log("API_UID", API_UID)
-    console.log("request", JSON.stringify(request, null, 2))
-    console.log("response", JSON.stringify(response, null, 2))
+    // let token = await SecureStore.getItemAsync("session_token")
+    // if (token && (await checkToken(token))) {
+    //   router.replace("/home")
+    //   return
+    // }
     const res = await promptAsync()
     if (res.type !== "success") return
     const sessionState = res.params
@@ -73,15 +85,20 @@ export function SessionProvider(props: React.PropsWithChildren) {
     setSession(null)
     setCode(null)
     SecureStore.deleteItemAsync("session_token")
+    router.replace("/login")
   }
 
+  useEffect(() => {
+    if (!isSessionLoading && session !== null) userRefetch()
+  }, [session, isSessionLoading])
   return (
     <AuthContext.Provider
       value={{
         signIn,
         signOut,
         session,
-        isLoading: isLoading || isCodeLoading,
+        isLoading: isSessionLoading || isCodeLoading,
+        me,
       }}
     >
       {props.children}

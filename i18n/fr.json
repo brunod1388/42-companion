@@ -1,5 +1,77 @@
 {
   "login": {
-    "signIn": "Se connecter"
+    "signIn": "Se connecter",
+    "signOut": "Se déconnecter"
+  },
+  "home": {
+    "wallet": "Portefeuille",
+    "evalPoints": "Points d'évaluation",
+    "cursus": "Cursus",
+    "grade": "Grade",
+    "level": "Niveau",
+    "agenda": "Agenda"
+  },
+  "settings": {
+    "settings": "Paramètres",
+    "language": "Langue",
+    "darkMode": "Mode sombre",
+    "logout": "Se déconnecter"
+  },
+  "language": {
+    "language": "Langue",
+    "english": "Anglais",
+    "french": "Français"
+  },
+  "events": {
+    "agenda": "Agenda",
+    "events": "Événements",
+    "noEvents": "Aucun événement à venir",
+    "about": "environ",
+    "hours": "heures",
+    "subscribe": "S'inscrire",
+    "duration": {
+      "zero": "moins d'une heures",
+      "one": "environ une heure",
+      "other": "environ %{count} heures"
+    }
+  },
+  "eval": {
+    "evals": "Évaluations",
+    "evalShort": "Éval",
+    "noEvals": "Aucune évaluation à venir",
+    "youWillBeEval": "Vous serez évalué sur %{name}"
+  },
+  "projects": {
+    "projects": "Projets",
+    "noProjects": "Aucun projet"
+  },
+  "users": {
+    "users": "Utilisateurs",
+    "noUsers": "Aucun utilisateur",
+    "noUsersFound": "Aucun utilisateur trouvé",
+    "search": "Rechercher un utilisateur"
+  },
+  "duration": {
+    "zero": "moins d'une heures",
+    "one": "environ une heure",
+    "other": "environ %{hours} heures"
+  },
+  "general": {
+    "yes": "Oui",
+    "no": "Non",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "close": "Fermer",
+    "save": "Sauvegarder",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "add": "Ajouter",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "warning": "Attention",
+    "info": "Information",
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer cet élément ?",
+    "confirmLogout": "Êtes-vous sûr de vouloir vous déconnecter ?"
   }
 }
