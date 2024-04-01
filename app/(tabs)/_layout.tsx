@@ -44,7 +44,7 @@ export default function TabsLayout() {
   }
 
   return (
-    <View flex={1} pt={top} bg={mode === "dark" ? colors.black : colors.white}>
+    <View flex={1} pt={top} bg={mode === "dark" ? colors.grey42 : colors.white}>
       <Tabs
         initialRouteName="home"
         screenOptions={{

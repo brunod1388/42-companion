@@ -15,7 +15,7 @@ import {
   XStack,
   Label,
 } from "tamagui"
-import { ColorsType } from "theme/color"
+import { colors, ColorsType } from "theme/color"
 
 export type SelectProps = {
   labelTx?: Scope
@@ -43,7 +43,7 @@ export function Select({
   const placeholderValue = placeholderTx ? t(placeholderTx) : placeholder
   const { mainColor, mode } = useTheme()
   const finalColor = color ? color : mainColor
-  const bg = mode === "dark" ? "black" : "white"
+  const bg = mode === "dark" ? colors.grey42 : "white"
   const text = mode === "dark" ? "white" : "black"
   return (
     <XStack ai="center" jc="space-between">

@@ -18,7 +18,7 @@ export default function Projects() {
               return (
                 <XStack key={p.id}>
                   <Text
-                    fontFamily="Jost_500Medium"
+                    fontWeight="medium"
                     text={p.project.name}
                     flexGrow={1}
                     textTransform="capitalize"
@@ -26,7 +26,7 @@ export default function Projects() {
                   />
                   {p.marked && (
                     <Text
-                      fontFamily="Jost_900Black"
+                      fontWeight="black"
                       fontSize="$5"
                       color={color}
                       text={p.final_mark?.toString()}

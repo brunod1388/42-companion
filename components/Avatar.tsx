@@ -15,7 +15,7 @@ const sizes = {
 }
 export default function Avatar({ image, color, size = "md", ...rest }: AvatarProps) {
   return (
-    <TAvatar circular size={sizes[size]} position="absolute" b={-10} l={20} zi={1000} {...rest}>
+    <TAvatar circular size={sizes[size]} {...rest}>
       <TAvatar.Image src={image} />
       <TAvatar.Fallback bg={color ?? colors.green} />
     </TAvatar>

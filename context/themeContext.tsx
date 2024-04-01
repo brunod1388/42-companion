@@ -25,10 +25,18 @@ export function ThemeProvider({ children }: React.PropsWithChildren) {
 
   const toggleMode = () => setMode((prev) => (prev === "dark" ? "light" : "dark"))
 
+  const darkT = {
+    ...DarkTheme,
+    colors: {
+      ...DarkTheme.colors,
+      background: colors.grey42,
+      text: "red",
+    },
+  }
   return (
     <ThemeContext.Provider value={{ mainColor, setMainColor, mode, setMode, toggleMode }}>
       <TamaguiProvider config={tamaguiConfig}>
-        <RNThemeProvider value={mode === "dark" ? DarkTheme : DefaultTheme}>
+        <RNThemeProvider value={mode === "dark" ? darkT : DefaultTheme}>
           <StatusBar style={mode === "dark" ? "light" : "dark"} />
           {children}
         </RNThemeProvider>

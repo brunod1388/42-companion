@@ -47,7 +47,7 @@ export default function EventDetails({ event, close }: EventDetailsProps) {
           color="white"
           my="$3"
           textTransform="uppercase"
-          fontFamily="Jost_400Regular"
+          fontWeight="regular"
         />
         <Text
           text={format(new Date(event.begin_at), "MMMM dd, yyyy 'at' HH:mm")}
@@ -82,11 +82,7 @@ export default function EventDetails({ event, close }: EventDetailsProps) {
         />
       </XStack>
       <ScrollView bg={isDark ? colors.black : colors.white} p="$2" flexGrow={1}>
-        <Text
-          color={isDark ? "white" : "black"}
-          text={event.description}
-          fontFamily="Jost_400Regular"
-        />
+        <Text color={isDark ? "white" : "black"} text={event.description} fontWeight="regular" />
       </ScrollView>
       <XStack
         bg={isDark ? colors.black : colors.white}

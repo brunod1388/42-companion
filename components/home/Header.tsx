@@ -47,12 +47,14 @@ export default function Header() {
       <XStack flexGrow={1}>
         <YStack p={10} flexGrow={1} flex={1} gap="$1.5">
           <Text
+            color="white"
+            fontWeight="bold"
+            fontSize="$7"
             numberOfLines={1}
             text={me?.displayname}
             textOverflow="ellipsis"
-            style={styles.name}
           />
-          <Text text={loginTitle} color="white" />
+          <Text fontWeight="regular" fontSize="$5" text={loginTitle} color="white" />
           <YStack bg="#202626c0" p="$3" borderRadius="$2" jc="space-between" flexGrow={1}>
             <Line label="home.wallet" value={me?.wallet + " ₳"} />
             <Line label="home.evalPoints" value={me?.correction_point} />
@@ -71,7 +73,7 @@ export default function Header() {
                 />
               ) : undefined}
             </Line>
-            <Line label="home.grade" value={me?.grade} />
+            <Line label="home.grade" value={me?.cursus_users[cursusIndex].grade} />
           </YStack>
           <XStack gap={20}></XStack>
         </YStack>
@@ -89,6 +91,7 @@ export default function Header() {
         l={10}
         borderWidth={3}
         borderColor={mode === "dark" ? "black" : "white"}
+        zi={1000}
       />
     </ImageBackground>
   )
@@ -119,11 +122,5 @@ const styles = StyleSheet.create({
     maxHeight: 240,
     display: "flex",
     flexDirection: "column",
-  },
-  name: {
-    fontSize: 20,
-    color: "white",
-    fontWeight: "bold",
-    overflow: "hidden",
   },
 })

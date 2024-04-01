@@ -13,7 +13,15 @@ export type TextProps = {
   gap?: number | string
   ai?: "center" | "flex-start" | "flex-end" | "stretch" | "baseline"
   font?: string
-} & Omit<TTextProps, "color">
+  fontWeight?: "regular" | "medium" | "bold" | "black"
+} & Omit<TTextProps, "color" | "fontWeight">
+
+const fontFamily = {
+  regular: "Jost_400Regular",
+  medium: "Jost_500Medium",
+  bold: "Jost_700Bold",
+  black: "Jost_900Black",
+}
 
 export function Text({
   text,
@@ -24,23 +32,26 @@ export function Text({
   gap = "$1",
   ai = "center",
   rightElement,
+  fontWeight = "regular",
   font,
+  flex,
   ...rest
 }: TextProps) {
   const content = tx ? t(tx) : text
   const { mode, mainColor } = useTheme()
   const baseColor = mode === "dark" ? "white" : "black"
   let finalColor = color === "main" ? mainColor : color ? colors[color] : baseColor
+  const ff = fontFamily[fontWeight]
 
   const TextElement = () => (
-    <TText color={finalColor} {...rest} ai={ai}>
+    <TText color={finalColor} {...rest} ai={ai} style={{ fontFamily: ff }}>
       {children !== undefined ? children : content}
     </TText>
   )
 
   if (leftElement || rightElement)
     return (
-      <XStack ai={ai} gap={gap}>
+      <XStack ai={ai} gap={gap} flex={flex}>
         {leftElement}
         <TextElement />
         {rightElement}
@@ -61,7 +72,7 @@ export function Title({ icon, ...rest }: TitleProps) {
     <Text
       leftElement={icon({ size: 28, color: baseColor })}
       font="bold"
-      fontFamily="Jost_700Bold"
+      fontWeight="bold"
       fontSize={28}
       gap="$2"
       {...rest}

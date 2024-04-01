@@ -43,8 +43,8 @@ export const getMe = async (): Promise<any> => {
   }
 }
 
-export const getUsers = async (campus_id: number, paramas: any): Promise<any> => {
-  const users = await get(`/v2/campus/${campus_id}/users`, paramas)
+export const searchUsers = async (campus_id: number, search: string): Promise<any> => {
+  const users = await get(`/v2/users?search[login]=${search}`)
   return users.data
 }
 

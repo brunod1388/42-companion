@@ -12,7 +12,7 @@ export type DropdownProps = {
 
 export function DropDown({ labels, index, setIndex, close }: DropdownProps) {
   return (
-    <Stack position="absolute" bg={colors.grey42dark} br={4} p="$2" gap="$3" zIndex={1000} r={0}>
+    <Stack position="absolute" bg={colors.grey42dark} br={4} p="$2" gap="$3" zIndex={10000} r={0}>
       {labels.map((label, i) => {
         return (
           <TouchableOpacity

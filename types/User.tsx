@@ -1,6 +1,8 @@
 export type User = {
   id: number
   projects_users: ProjectUsers[]
+  displayname: string
+  avatar: string
 }
 
 export type ProjectUsers = {
