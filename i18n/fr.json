@@ -46,10 +46,14 @@
     "noProjects": "Aucun projet"
   },
   "users": {
+    "userProfile": "Profil de l'utilisateur",
     "users": "Utilisateurs",
     "noUsers": "Aucun utilisateur",
     "noUsersFound": "Aucun utilisateur trouvé",
-    "search": "Rechercher un utilisateur"
+    "search": "Rechercher un utilisateur",
+    "achievements": "Succès",
+    "projects": "Projets",
+    "skills": "Compétences"
   },
   "duration": {
     "zero": "moins d'une heures",

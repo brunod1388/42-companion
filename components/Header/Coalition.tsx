@@ -1,6 +1,6 @@
 import React from "react"
 import { FontAwesome5 } from "@expo/vector-icons"
-import Flag from "components/home/Flag"
+import Flag from "components/Header/Flag"
 import { Stack, styled, Text as TText } from "tamagui"
 
 export default function Coalition({ coalition }: { coalition?: any }) {

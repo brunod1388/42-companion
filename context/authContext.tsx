@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 import { useStorageState } from "../hooks/useStorageState"
 import { makeRedirectUri, ResponseType, useAuthRequest } from "expo-auth-session"
 import * as WebBrowser from "expo-web-browser"
@@ -61,7 +61,8 @@ export function SessionProvider(props: React.PropsWithChildren) {
     refetch: userRefetch,
   } = useQuery({
     queryKey: ["me"],
-    queryFn: getMe,
+    queryFn: () => (session ? getMe() : null),
+    enabled: !!session,
   })
 
   const signIn = async () => {

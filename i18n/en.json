@@ -46,10 +46,14 @@
     "noProjects": "No projects"
   },
   "users": {
+    "userProfile": "User Profile",
     "users": "Users",
     "noUsers": "No users",
     "noUsersFound": "No users found",
-    "search": "Search users"
+    "search": "Search users",
+    "achievements": "Achievements",
+    "projects": "Projects",
+    "skills": "Skills"
   },
   "duration": {
     "zero": "less than an hour",

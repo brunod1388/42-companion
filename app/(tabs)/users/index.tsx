@@ -35,7 +35,7 @@ export default function Users() {
                 key={user.id}
                 gap="$2"
                 ai="center"
-                onPress={() => expo.navigate(`/user/${user.id}`)}
+                onPress={() => expo.navigate(`/users/${user.id}`)}
               >
                 <Avatar size="sm" image={user.image.link} />
                 <YStack flex={1}>

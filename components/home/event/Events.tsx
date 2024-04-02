@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { getEvents } from "utils/api"
-import { ScrollView, YStack } from "tamagui"
+import { YStack } from "tamagui"
 import EventItem from "./EventItem"
 import { Text } from "components/Text"
 import Dialog from "components/Dialog"
@@ -36,14 +36,11 @@ export default function Events() {
 
   return (
     <>
-      <YStack p="$2" gap="$3">
-        <ScrollView>
-          <YStack gap="$2">
-            {events.map((event: any) => (
-              <EventItem event={event} key={event.id} onPress={() => handlePress(event)} />
-            ))}
-          </YStack>
-        </ScrollView>
+      <YStack gap="$2" flex={1}>
+        {events &&
+          events.map((event: any) => (
+            <EventItem event={event} key={event.id} onPress={() => handlePress(event)} />
+          ))}
       </YStack>
       <Dialog open={open} close={() => setOpen(false)}>
         <EventDetails event={selectedEvent} close={() => setOpen(false)} />

@@ -5,6 +5,21 @@ axios.defaults.baseURL = "https://api.intra.42.fr/"
 
 export async function get(url: string, params?: any): Promise<any> {
   return axios.get(url, { params })
+  // let res
+  // try {
+  //   res = await axios.get(url, { params })
+  //   if (res.status === 429) {
+  //     return null
+  //   }
+  //   if (res.status !== 200) throw new Error("Error while getting data")
+  //   return res
+  // } catch (e) {
+  //   if (await checkToken(axios.defaults.headers.common["Authorization"] as string))
+  //     return axios.get(url, { params })
+  //   console.log("res", res)
+  //   console.error("Error while getting data:", e)
+  //   return null
+  // }
 }
 
 export function post(url: string, data: any): Promise<any> {
@@ -43,6 +58,16 @@ export const getMe = async (): Promise<any> => {
   }
 }
 
+export const getUser = async (id: string): Promise<any> => {
+  const user = await get(`/v2/users/${id}`)
+
+  return {
+    ...user.data,
+    avatar: user.data.image.link,
+    campusId: user.data.campus[0].id,
+  }
+}
+
 export const searchUsers = async (campus_id: number, search: string): Promise<any> => {
   const users = await get(`/v2/users?search[login]=${search}`)
   return users.data
@@ -69,7 +94,6 @@ export const getEvents = async (user_id: number): Promise<any> => {
 }
 
 export const checkToken = async (token: string) => {
-  console.log("Checking token", token)
   let res
   try {
     res = await axios.get("oauth/token/info", {
@@ -79,7 +103,5 @@ export const checkToken = async (token: string) => {
     console.error("Error check token : ", e)
     return false
   }
-  console.log(res.data)
-
-  return true
+  return res.status === 200
 }

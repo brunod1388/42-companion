@@ -10,6 +10,7 @@ export type TextProps = {
   leftElement?: JSX.Element
   rightElement?: JSX.Element
   color?: ColorsType | "main"
+  colorOverride?: string
   gap?: number | string
   ai?: "center" | "flex-start" | "flex-end" | "stretch" | "baseline"
   font?: string
@@ -29,6 +30,7 @@ export function Text({
   children,
   leftElement,
   color,
+  colorOverride,
   gap = "$1",
   ai = "center",
   rightElement,
@@ -44,7 +46,7 @@ export function Text({
   const ff = fontFamily[fontWeight]
 
   const TextElement = () => (
-    <TText color={finalColor} {...rest} ai={ai} style={{ fontFamily: ff }}>
+    <TText color={colorOverride ?? finalColor} {...rest} ai={ai} style={{ fontFamily: ff }}>
       {children !== undefined ? children : content}
     </TText>
   )
@@ -62,7 +64,7 @@ export function Text({
 }
 
 export type TitleProps = {
-  icon: (props: any) => JSX.Element
+  icon?: (props: any) => JSX.Element
 } & Omit<TextProps, "leftElement" | "rightElement" | "icon">
 
 export function Title({ icon, ...rest }: TitleProps) {
@@ -70,7 +72,7 @@ export function Title({ icon, ...rest }: TitleProps) {
   const baseColor = mode === "dark" ? "white" : "black"
   return (
     <Text
-      leftElement={icon({ size: 28, color: baseColor })}
+      leftElement={icon !== undefined ? icon({ size: 28, color: baseColor }) : undefined}
       font="bold"
       fontWeight="bold"
       fontSize={28}

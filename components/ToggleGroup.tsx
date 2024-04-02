@@ -11,7 +11,7 @@ export type ToggleGroupProps = {
   selected: string
   setSelected: (value: string) => void
   direction?: "row" | "column"
-  color?: ColorsType
+  color?: string
 }
 
 export default function ToggleGroup({
@@ -22,7 +22,7 @@ export default function ToggleGroup({
   color,
 }: ToggleGroupProps) {
   const { mainColor } = useTheme()
-  const finalColor = color ? colors[color] : mainColor
+  const finalColor = color ? color : mainColor
   const colorType = color ? color : "main"
   return (
     <Stack flexDirection={direction} borderWidth={1} borderColor={finalColor} h="$2">
@@ -43,11 +43,11 @@ export default function ToggleGroup({
               jc="center"
             >
               <Text
-                color={item.value === selected ? "white" : colorType}
+                colorOverride={item.value === selected ? "white" : finalColor}
                 tx={item.nameTx}
                 leftElement={item.icon}
                 textAlign="center"
-                fontFamily={item.value === selected ? "Jost_700Bold" : "Jost_400Regular"}
+                fontWeight={item.value === selected ? "bold" : "regular"}
               />
             </View>
           </TouchableOpacity>
